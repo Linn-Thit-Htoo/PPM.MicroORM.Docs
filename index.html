@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PPM.MicroORM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-white">
+    <header class="fixed inset-x-0 top-0 z-50 bg-white shadow-md">
+      <nav
+        class="flex items-center justify-between p-6 lg:px-8"
+        aria-label="Global"
+      >
+        <div class="flex lg:flex-1">
+          <h1 style="font-size: larger; font-weight: bold">PPM.MicroORM</h1>
+        </div>
+        <div class="lg:hidden">
+          <button id="mobileMenuButton" class="p-2.5 text-gray-700">
+            <svg
+              class="w-6 h-6"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+              />
+            </svg>
+          </button>
+        </div>
+        <div class="hidden lg:flex lg:gap-x-12">
+          <a
+            href="#introductionSection"
+            class="text-sm font-semibold text-gray-900"
+            >Introduction</a
+          >
+          <a href="#gettingStarted" class="text-sm font-semibold text-gray-900"
+            >Getting Started</a
+          >
+        </div>
+      </nav>
+    </header>
+
+    <div
+      id="mobileMenu"
+      class="hidden fixed inset-0 z-50 bg-white p-6 sm:max-w-sm"
+    >
+      <button id="closeMenuButton" class="p-2.5 text-gray-700">
+        <svg
+          class="w-6 h-6"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
+      <nav class="mt-6 space-y-2">
+        <a
+          href="#introductionSection"
+          class="block px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50"
+          >Introduction</a
+        >
+        <a
+          href="#gettingStarted"
+          class="block px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50"
+          >Getting Started</a
+        >
+      </nav>
+    </div>
+
+    <main class="relative px-6 pt-20 lg:px-8">
+      <section
+        id="introductionSection"
+        class="max-w-2xl mx-auto py-32 sm:py-48 lg:py-56 text-center"
+      >
+        <h1 class="text-5xl font-semibold text-gray-900 sm:text-7xl">
+          PPM.MicroORM
+        </h1>
+        <p class="mt-8 text-lg font-medium text-gray-500 sm:text-xl">
+          Custom implementation of Micro-ORM including <p style="color: red;"><code>Query</code>, <code>QueryAsync</code>,
+            <code>QueryFirstOrDefault</code>, <code>QueryFirstOrDefaultAsync</code>, <code>QueryFirst</code>,
+            <code>QueryFirstAsync</code>, <code>Single</code>, <code>SingleAsync</code>, <code>SingleOrDefault</code>,
+            <code>SingleOrDefaultAsync</code>, <code>Execute</code> and <code>ExecuteAsync</code>.</p>
+        </p>
+        <div
+          class="mt-10 flex justify-center gap-x-6"
+          style="align-items: center"
+        >
+          <a
+            href="#gettingStarted"
+            class="px-4 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-md hover:bg-indigo-500"
+            >Get started</a
+          >
+          <a href="#gettingStarted" class="text-sm font-semibold text-gray-900"
+            >Read the Docs →</a
+          >
+        </div>
+      </section>
+    </main>
+
+    <div
+      class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md"
+      id="gettingStarted"
+    >
+      <h1 class="text-2xl font-bold mb-4">Getting Started</h1>
+      <p class="my-3" style="color: red;font-weight: bold;">* This example will describe about asynchronous methods. All LINQ methods support both synchronous and asynchronous.</p>
+
+      <div class="mb-6">
+        <h2 class="text-xl font-semibold mb-2">1. Install the NuGet Package</h2>
+        <pre
+          class="bg-gray-900 text-white p-4 rounded-lg overflow-x-auto"
+        ><code>dotnet add package PPM.MicroORM</code></pre>
+      </div>
+
+      <div class="mb-6">
+        <h2 class="text-xl font-semibold mb-2">
+          2. Install Other Dependencies
+        </h2>
+        <pre
+          class="bg-gray-900 text-white p-4 rounded-lg overflow-x-auto"
+        ><code class="language-xml">
+&lt;PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.1" /&gt;
+&lt;PackageReference Include="Newtonsoft.Json" Version="13.0.3" /&gt;
+        </code></pre>
+      </div>
+
+      <div class="mb-6">
+        <h2 class="text-xl font-semibold mb-2">
+          3. Read Action Examples
+        </h2>
+        <h2 class="text-lg font-semibold mb-2" style="color: red;">
+            <code>QueryAsync</code>
+        </h2>
+        <pre
+          class="bg-gray-900 text-white p-4 rounded-lg overflow-x-auto"
+        ><code class="language-xml">
+string query = BlogQuery.BlogListQuery;
+var parameters = new List&lt;SqlParameter&gt;()
+{
+    new("@IsDeleted", false)
+};
+
+using var db = new SqlConnection(_connectionString);
+var lst = await db.QueryAsync&lt;BlogModel&gt;(query, parameters);
+        </code></pre>
+        
+        <h2 class="text-lg font-semibold my-2" style="color: red;">
+            <code>QueryFirstOrDefaultAsync</code>
+        </h2>
+        <pre
+          class="bg-gray-900 text-white p-4 rounded-lg overflow-x-auto"
+        ><code class="language-xml">
+string query = BlogQuery.GetBlogByIdQuery;
+var parameters = new List&lt;SqlParameter&gt;()
+{
+    new SqlParameter("@BlogId", id),
+    new SqlParameter("@IsDeleted", false)
+};
+
+using var db = new SqlConnection(_connectionString);
+var item = await db.QueryFirstOrDefaultAsync&lt;BlogModel&gt;(query, parameters);
+        </code></pre>
+        
+        <h2 class="text-lg font-semibold my-2" style="color: red;">
+            <code>QueryFirstAsync</code>
+        </h2>
+        <li>It is an asynchronous method.</li>
+        <li>It returns only one element even when the sequence contains more than one element.</li>
+        <li>Throws an error when there is no matching record.</li>
+        
+        <h2 class="text-lg font-semibold my-2" style="color: red;">
+            <code>SingleAsync</code>
+        </h2>
+        <li>It is an asynchronous method.</li>
+        <li>Ensures that there is only one record </li>
+        <li>Throws error if there is no element in the sequence.</li>
+        <li>Throws error if there is more than one element.</li>
+        
+        <h2 class="text-lg font-semibold my-2" style="color: red;">
+            <code>SingleOrDefaultAsync</code>
+        </h2>
+        <li>It is an asynchronous method.</li>
+        <li>Returns null if there is no element in the sequence.</li>
+        <li>Throws error if there is more than one element in the sequence.</li>
+      </div>
+
+      <div class="mb-6">
+        <h2 class="text-xl font-semibold mb-2">
+          4. Write Actions
+        </h2>
+        <pre
+          class="bg-gray-900 text-white p-4 rounded-lg overflow-x-auto"
+        ><code class="language-xml">
+string query = BlogQuery.AddBlogQuery;
+
+var parameters = new List<SqlParameter>()
+{
+    new SqlParameter("@BlogTitle", blogTitle),
+    new SqlParameter("@BlogAuthor", blogAuthor),
+    new SqlParameter("@BlogContent", blogContent)
+};
+
+using var db = new SqlConnection(_connectionString);
+int result = await db.ExecuteAsync(query, parameters);
+        </code></pre>
+      </div>
+
+    <script>
+      const mobileMenu = document.getElementById("mobileMenu");
+      const mobileMenuButton = document.getElementById("mobileMenuButton");
+      const closeMenuButton = document.getElementById("closeMenuButton");
+
+      mobileMenuButton.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+      });
+      closeMenuButton.addEventListener("click", () => {
+        mobileMenu.classList.add("hidden");
+      });
+    </script>
+  </body>
+</html>
